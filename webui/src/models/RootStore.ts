@@ -9,7 +9,7 @@ export const RootStore = RootStoreBase.actions((self) => ({
   log() {
     console.log(JSON.stringify(self));
   },
-  requestPokemons(first: number) {
+  requestPokemons({ first }: { first: number }) {
     const query = self.queryPokemons({ first: first }, POKEMON_FRAGMENT);
     return query;
   },
