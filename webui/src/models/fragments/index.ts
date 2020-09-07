@@ -7,4 +7,5 @@ export const POKEMON_FRAGMENT =
     .name
     .maxCP
     .image
+    .attacks( (a) => a.fast( (f) => f.name.damage.type ))
     .toString();

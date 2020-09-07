@@ -8,9 +8,10 @@ interface IPokemon {
   number: any;
   maxCP: any;
   image: any;
+  attacks: any;
 }
 const Pokemon = (props: IPokemon) => {
-  const { name, id, number, maxCP, image } = props;
+  const { name, id, number, maxCP, image, attacks } = props;
   return (
     <div
       style={{ border: "1px solid tomato", width: 200, margin: 5, padding: 5 }}
@@ -54,6 +55,7 @@ const App = () => {
               number={p.number}
               maxCP={p.maxCP}
               image={p.image}
+              attacks={p.attacks}
             ></Pokemon>
           );
         })}
