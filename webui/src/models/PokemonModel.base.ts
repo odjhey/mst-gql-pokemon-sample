@@ -6,6 +6,8 @@ import { IObservableArray } from "mobx"
 import { types } from "mobx-state-tree"
 import { MSTGQLRef, QueryBuilder, withTypedRefs } from "mst-gql"
 import { ModelBase } from "./ModelBase"
+import { CommentModel, CommentModelType } from "./CommentModel"
+import { CommentModelSelector } from "./CommentModel.base"
 import { PokemonAttackModel, PokemonAttackModelType } from "./PokemonAttackModel"
 import { PokemonAttackModelSelector } from "./PokemonAttackModel.base"
 import { PokemonDimensionModel, PokemonDimensionModelType } from "./PokemonDimensionModel"
@@ -61,6 +63,8 @@ export const PokemonModelBase = withTypedRefs<Refs>()(ModelBase
     /** The maximum HP of this Pokémon */
     maxHP: types.union(types.undefined, types.null, types.integer),
     image: types.union(types.undefined, types.null, types.string),
+    /** Comments */
+    comments: types.union(types.undefined, types.null, types.array(types.union(types.null, types.late((): any => CommentModel)))),
   })
   .views(self => ({
     get store() {
@@ -85,6 +89,7 @@ export class PokemonModelSelector extends QueryBuilder {
   attacks(builder?: string | PokemonAttackModelSelector | ((selector: PokemonAttackModelSelector) => PokemonAttackModelSelector)) { return this.__child(`attacks`, PokemonAttackModelSelector, builder) }
   evolutions(builder?: string | PokemonModelSelector | ((selector: PokemonModelSelector) => PokemonModelSelector)) { return this.__child(`evolutions`, PokemonModelSelector, builder) }
   evolutionRequirements(builder?: string | PokemonEvolutionRequirementModelSelector | ((selector: PokemonEvolutionRequirementModelSelector) => PokemonEvolutionRequirementModelSelector)) { return this.__child(`evolutionRequirements`, PokemonEvolutionRequirementModelSelector, builder) }
+  comments(builder?: string | CommentModelSelector | ((selector: CommentModelSelector) => CommentModelSelector)) { return this.__child(`comments`, CommentModelSelector, builder) }
 }
 export function selectFromPokemon() {
   return new PokemonModelSelector()

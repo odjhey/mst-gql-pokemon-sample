@@ -15,6 +15,8 @@ import { AttackModel, AttackModelType } from "./AttackModel"
 import { attackModelPrimitives, AttackModelSelector } from "./AttackModel.base"
 import { PokemonEvolutionRequirementModel, PokemonEvolutionRequirementModelType } from "./PokemonEvolutionRequirementModel"
 import { pokemonEvolutionRequirementModelPrimitives, PokemonEvolutionRequirementModelSelector } from "./PokemonEvolutionRequirementModel.base"
+import { CommentModel, CommentModelType } from "./CommentModel"
+import { commentModelPrimitives, CommentModelSelector } from "./CommentModel.base"
 
 
 
@@ -31,14 +33,16 @@ export enum RootStoreBaseQueries {
 queryPokemons="queryPokemons",
 queryPokemon="queryPokemon"
 }
-
+export enum RootStoreBaseMutations {
+mutateComment="mutateComment"
+}
 
 /**
 * Store, managing, among others, all the objects received through graphQL
 */
 export const RootStoreBase = withTypedRefs<Refs>()(MSTGQLStore
   .named("RootStore")
-  .extend(configureStoreMixin([['Pokemon', () => PokemonModel], ['PokemonDimension', () => PokemonDimensionModel], ['PokemonAttack', () => PokemonAttackModel], ['Attack', () => AttackModel], ['PokemonEvolutionRequirement', () => PokemonEvolutionRequirementModel]], ['Pokemon'], "js"))
+  .extend(configureStoreMixin([['Pokemon', () => PokemonModel], ['PokemonDimension', () => PokemonDimensionModel], ['PokemonAttack', () => PokemonAttackModel], ['Attack', () => AttackModel], ['PokemonEvolutionRequirement', () => PokemonEvolutionRequirementModel], ['Comment', () => CommentModel]], ['Pokemon'], "js"))
   .props({
     pokemon: types.optional(types.map(types.late((): any => PokemonModel)), {})
   })
@@ -52,5 +56,10 @@ export const RootStoreBase = withTypedRefs<Refs>()(MSTGQLStore
       return self.query<{ pokemon: PokemonModelType}>(`query pokemon($id: String, $name: String) { pokemon(id: $id, name: $name) {
         ${typeof resultSelector === "function" ? resultSelector(new PokemonModelSelector()).toString() : resultSelector}
       } }`, variables, options)
+    },
+    mutateComment(variables: { id: string, comment?: string }, resultSelector: string | ((qb: PokemonModelSelector) => PokemonModelSelector) = pokemonModelPrimitives.toString(), optimisticUpdate?: () => void) {
+      return self.mutate<{ comment: PokemonModelType}>(`mutation comment($id: String!, $comment: String) { comment(id: $id, comment: $comment) {
+        ${typeof resultSelector === "function" ? resultSelector(new PokemonModelSelector()).toString() : resultSelector}
+      } }`, variables, optimisticUpdate)
     },
   })))

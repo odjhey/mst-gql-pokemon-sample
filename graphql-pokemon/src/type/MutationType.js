@@ -25,6 +25,9 @@ const MutationType = new GraphQLObjectType({
         },
       },
       resolve: async (obj, { id, comment }) => {
+        if (!comment) {
+          throw new Error("Comment cannot be blank sir.");
+        }
         await addComment(id, comment);
         return await getPokemonById(id);
       },

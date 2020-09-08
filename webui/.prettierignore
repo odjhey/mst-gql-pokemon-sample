@@ -1,1 +1,5 @@
-./src/models/fragments
+src/models/fragments/index.*
+src/models/index.*
+src/models/reactUtils.*
+src/models/*.base.*
+src/models/*Enum.*

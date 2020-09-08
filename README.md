@@ -10,4 +10,9 @@
 
 # Steps for Mutations
 
-1.
+1. familiarize with gql (mutation)
+1. scaffold when api changes
+1. update/create fragments
+1. create mutate action (RootStore)
+1. wire to UI/page
+1. don't forget obs for awesomeness
