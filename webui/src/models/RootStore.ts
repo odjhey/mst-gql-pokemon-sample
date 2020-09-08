@@ -11,6 +11,9 @@ export const RootStore = RootStoreBase.props({
     vPokemon: (id: string) => {
       return self.pokemon.get(id);
     },
+    vPokemons: () => {
+      return Array.from(self.pokemon.values());
+    },
   }))
   .actions((self) => ({
     // This is an auto-generated example action.
