@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import Portal from "./Portal";
 import CommentBox from "./Comment";
 
-import { StoreContext } from "../models";
+import { StoreContext, useQuery } from "../models";
 import { observer } from "mobx-react";
 
 interface IPokemon {
@@ -18,7 +18,7 @@ interface IPokemon {
 const Pokemon = observer((props: IPokemon) => {
   const { name, id, number, maxCP, image, attacks, comments } = props;
   //const [commentsShow, setCommentsShow] = useState(false);
-  const store = useContext(StoreContext);
+  const { data, loading, error, store, setQuery } = useQuery();
   return (
     <div>
       <div
@@ -51,7 +51,7 @@ const Pokemon = observer((props: IPokemon) => {
               left: 20,
               zIndex: 10,
               minWidth: 300,
-              background: "tomato",
+              background: "white",
             }}
           >
             <h1>
@@ -65,11 +65,14 @@ const Pokemon = observer((props: IPokemon) => {
                 </div>
               );
             })}
+            {error ? (
+              <h5 style={{ color: "red" }}>{error.graphQLErrors[0].message}</h5>
+            ) : null}
             <CommentBox
               onComment={(comment) => {
                 console.log("newcomment", number, comment);
                 //onComment(number, comment);
-                store.addComment({ id: number, comment });
+                setQuery(store.addComment({ id: number, comment }));
               }}
               onClose={() => {
                 store.setActive("");
