@@ -42,7 +42,11 @@ const Pokemon = (props: IPokemon) => {
             </h1>
             {!comments.length && <p>No comment.</p>}
             {comments.map((c: any) => {
-              return <p>{c.comment}</p>;
+              return (
+                <div key={c.id}>
+                  <p>{c.comment}</p>
+                </div>
+              );
             })}
           </div>
         </Portal>
