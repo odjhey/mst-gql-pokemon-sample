@@ -8,4 +8,5 @@ export const POKEMON_FRAGMENT =
     .maxCP
     .image
     .attacks( (a) => a.fast( (f) => f.name.damage.type ))
+    .comments( (c) => c.id.comment )
     .toString();
