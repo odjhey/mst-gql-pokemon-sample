@@ -14,19 +14,9 @@ interface IPokemon {
   image: any;
   attacks: any;
   comments: any;
-  onComment: (id: string, comment: string) => void;
 }
 const Pokemon = observer((props: IPokemon) => {
-  const {
-    name,
-    id,
-    number,
-    maxCP,
-    image,
-    attacks,
-    comments,
-    onComment,
-  } = props;
+  const { name, id, number, maxCP, image, attacks, comments } = props;
   //const [commentsShow, setCommentsShow] = useState(false);
   const store = useContext(StoreContext);
   return (
@@ -78,7 +68,8 @@ const Pokemon = observer((props: IPokemon) => {
             <CommentBox
               onComment={(comment) => {
                 console.log("newcomment", number, comment);
-                onComment(number, comment);
+                //onComment(number, comment);
+                store.addComment({ id: number, comment });
               }}
               onClose={() => {
                 store.setActive("");
@@ -95,14 +86,6 @@ const App = () => {
   const { data, loading, error } = useQuery((store) => {
     return store.requestPokemons({ first: 999 });
   });
-
-  const commentQuery = useQuery();
-
-  const addComment = (id: string, comment: string) => {
-    commentQuery.setQuery(
-      commentQuery.store.addComment({ id: id, comment: comment })
-    );
-  };
 
   if (error) {
     return <pre>{JSON.stringify(error)}</pre>;
@@ -125,7 +108,6 @@ const App = () => {
               image={p.image}
               attacks={p.attacks}
               comments={p.comments}
-              onComment={addComment}
             ></Pokemon>
           );
         })}
