@@ -5,7 +5,7 @@ import Pokemon from "./components/Pokemon";
 
 const App = () => {
   const { data, loading, error } = useQuery((store) => {
-    return store.requestPokemons({ first: 999 });
+    return store.requestPokemons({ first: 88 });
   });
 
   if (error) {
@@ -28,7 +28,6 @@ const App = () => {
               maxCP={p.maxCP}
               image={p.image}
               attacks={p.attacks}
-              comments={p.comments}
             ></Pokemon>
           );
         })}

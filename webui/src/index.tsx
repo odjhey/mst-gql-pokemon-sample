@@ -9,6 +9,9 @@ import { StoreContext } from "./models";
 
 const rootStore = createRootStore();
 
+// @ts-ignore
+window.store = rootStore;
+
 ReactDOM.render(
   <React.StrictMode>
     <StoreContext.Provider value={rootStore}>

@@ -13,12 +13,12 @@ interface IPokemon {
   maxCP: any;
   image: any;
   attacks: any;
-  comments: any;
 }
 const Pokemon = observer((props: IPokemon) => {
-  const { name, id, number, maxCP, image, attacks, comments } = props;
+  const { name, id, number, maxCP, image, attacks } = props;
   //const [commentsShow, setCommentsShow] = useState(false);
   const { data, loading, error, store, setQuery } = useQuery();
+  const comments = store.vPokemon(id)?.comments || [];
   return (
     <div>
       <div
