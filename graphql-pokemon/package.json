@@ -9,12 +9,13 @@
   },
   "bugs": "https://github.com/lucasbento/graphql-pokemon/issues",
   "dependencies": {
-    "graphql": "^15.3.0",
+    "graphql": "^14.3.0",
     "graphql-relay": "0.6.0",
     "koa": "^2.13.0",
     "koa-convert": "^1.2.0",
     "koa-cors": "0.0.16",
-    "koa-graphql": "^0.8.0"
+    "koa-graphql": "^0.8.0",
+    "mongoose": "^5.10.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

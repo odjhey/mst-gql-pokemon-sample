@@ -1,4 +1,4 @@
-# Steps
+# Steps for query
 
 1. familiarize with graphql
 1. generate code in webui (aka scaffold)
@@ -7,3 +7,7 @@
 1. create request query (RootStore)
 1. useQuery (UI/Page)
 1. add observer (for awesomeness)
+
+# Steps for Mutations
+
+1.

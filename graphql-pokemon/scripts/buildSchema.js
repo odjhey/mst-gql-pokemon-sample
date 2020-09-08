@@ -11,19 +11,19 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { graphql } from 'graphql';
-import { introspectionQuery, printSchema } from 'graphql/utilities';
-import fs from 'fs';
-import path from 'path';
+import { graphql } from "graphql";
+import { introspectionQuery, printSchema } from "graphql/utilities";
+import fs from "fs";
+import path from "path";
 
-import GraphQLSchema from '../src/schema';
+import GraphQLSchema from "../src/schema";
 
 async function generateSchema(schema, relativePath) {
-  const result = await (graphql(schema, introspectionQuery));
+  const result = await graphql(schema, introspectionQuery);
 
   if (result.errors) {
     console.error(
-      'ERROR introspecting schema: ',
+      "ERROR introspecting schema: ",
       JSON.stringify(result.errors, null, 2)
     );
   } else {
@@ -40,7 +40,7 @@ async function generateSchema(schema, relativePath) {
 }
 
 (async () => {
-  await generateSchema(GraphQLSchema, '../schemas');
+  await generateSchema(GraphQLSchema, "../schemas");
 
   process.exit(0);
 })();
